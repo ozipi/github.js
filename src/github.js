@@ -6,6 +6,7 @@ function Github (login){
 	//Info
 	this.data = {};
 	this.data.users = {};
+	this.data.meta = {};	
 
 	//Paths
 	this.paths = {};	
@@ -29,7 +30,7 @@ function Github (login){
 				return;
 		}
 		
-		$.getService("github").getUserPrivateInfo(
+		$.getService("github").getUserInfo(
 			{user: user, info: this, data: data},
 			$.proxy(this._getUserInfo_successHandler, this)
 		);
@@ -39,25 +40,33 @@ function Github (login){
 	//Success Handlers
 	this._getUserInfo_successHandler = function(result){
 		//refactor
-		this.data.meta = result.meta;
-		if (this._checkGithubStatus(this.data.meta) == null){
-			//Needs Auth
-			console.log(result.data.message);
-			return;
+		if (this._checkMeta(result.meta) != null){
+			this.data.users[result.data.login] = $.extend(true, {}, result.data);
+			console.log('this.users ->', this.data.users, result);		
 		}
-		
-		this.data.users[result.data.login] = $.extend(true, {}, result.data);
-		console.log('this.users ->', this.data.users, result);
-		return result;
+		else{
+			console.log(result.data.message);
+		}
 	};
 	
 	//Helpers
+	this._checkMeta = function(meta){
+		this.data.meta = meta;
+		if (this._checkGithubStatus(this.data.meta) == null){
+			//Needs Auth
+
+			return null;
+		}
+		console.log('ಠ_ಠ', meta['X-RateLimit-Remaining']);
+		return "ಠ_ಠ";
+	};
+	
 	this._checkGithubStatus = function(meta){
 		console.log('meta:', meta);
 		if (meta.status == 401){
 			return null;
 		}
-		return "ok";
+		return "ಠ_ಠ";
 	};
 	
 	this._checkUsersInfo = function(user) {
