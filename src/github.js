@@ -4,7 +4,8 @@ function Github (login){
 	this.login = login;
 
 	//Info
-	this.users = {};
+	this.data = {};
+	this.data.users = {};
 
 	//Paths
 	this.paths = {};	
@@ -14,6 +15,7 @@ function Github (login){
 	
   // Public Info methods  
 	this.getUserInfo = function(user, data){
+		//Init
 		if (user === undefined || user === ''){
 			user = this.login;
 		}
@@ -22,22 +24,50 @@ function Github (login){
 			data = {};			
 		}
 		
-		$.getService("users").getUserInfo(
+		if (this._checkUsersInfo(user) != null){
+				//Already on cache
+				return;
+		}
+		
+		$.getService("github").getUserPrivateInfo(
 			{user: user, info: this, data: data},
 			$.proxy(this._getUserInfo_successHandler, this)
 		);
 		
 	};
 	
-	this.getPaths = new function(){
-		return this.paths;
-	};
-	
 	//Success Handlers
 	this._getUserInfo_successHandler = function(result){
-		this.users[result.data.login] = $.extend(true, {}, result.data);
-		console.log('this.users ->', this.users);
+		//refactor
+		this.data.meta = result.meta;
+		if (this._checkGithubStatus(this.data.meta) == null){
+			//Needs Auth
+			console.log(result.data.message);
+			return;
+		}
+		
+		this.data.users[result.data.login] = $.extend(true, {}, result.data);
+		console.log('this.users ->', this.data.users, result);
 		return result;
 	};
+	
+	//Helpers
+	this._checkGithubStatus = function(meta){
+		console.log('meta:', meta);
+		if (meta.status == 401){
+			return null;
+		}
+		return "ok";
+	};
+	
+	this._checkUsersInfo = function(user) {
+		var userData = null;
+		for (var i in this.data.users){
+			if (i == user){
+				userData = this.data.users[i];
+			}
+		};
+		return userData;
+	}
 	
 }

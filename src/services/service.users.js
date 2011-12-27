@@ -1,4 +1,4 @@
-$.addService("users", {
+$.addService("github", {
 	
 	getUserInfo: function(data, success, error)
 	{
@@ -9,6 +9,13 @@ $.addService("users", {
 		this.sendRequest(url, data.data, success);
 	},
 	
+	getUserPrivateInfo: function(data, success, error)
+	{
+		//End url format https://api.github.com/user
+		var url = data.info.urlBase + data.info.paths.privateUsers;
+		console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
 	
 	//General request template
 	sendRequest: function(url, data, success)
@@ -22,18 +29,6 @@ $.addService("users", {
 			data: data,
 			success: success
 		});
-	},
-	
- 	_getSingleUser_successHandler: function(result) {
-		console.log('2_getSingleUser_successHandler::', result);		
-	},
-	
-	fee: function(response) {
-		console.log('foo2:::')
-	  var meta = response.meta;
-	  var data = response.data;
-	  console.log(meta);
-	  console.log(data);
 	}
 	
 });
