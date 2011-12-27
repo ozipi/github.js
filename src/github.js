@@ -9,8 +9,10 @@ function Github (login){
 	//Paths
 	this.paths = {};	
 	this.paths.publicUsers = '/users/';
-	this.paths.privateUsers = '/user/';	
+	this.paths.privateUsers = '/user';	
 	
+	
+  // Public Info methods  
 	this.getUserInfo = function(user, data){
 		if (user === undefined || user === ''){
 			user = this.login;
@@ -31,9 +33,10 @@ function Github (login){
 		return this.paths;
 	};
 	
+	//Success Handlers
 	this._getUserInfo_successHandler = function(result){
-		console.log('getUserInfo_successHandler::', result);		
-		this.users[name]
+		this.users[result.data.login] = $.extend(true, {}, result.data);
+		console.log('this.users ->', this.users);
 		return result;
 	};
 	

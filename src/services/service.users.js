@@ -3,6 +3,7 @@ $.addService("users", {
 	getUserInfo: function(data, success, error)
 	{
 		console.log('github::', data.info, data);		
+
 		//End url format https://api.github.com/users/ozipi
 		var url = data.info.urlBase + data.info.paths.publicUsers + data.user;
 		this.sendRequest(url, data.data, success);
@@ -12,7 +13,6 @@ $.addService("users", {
 	//General request template
 	sendRequest: function(url, data, success)
 	{
-		//$.getJSON(url, data, success);
 		console.log('sendRequest::', url, data, success);	
 		$.ajax( {
 			type : 'GET',
