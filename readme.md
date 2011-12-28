@@ -22,16 +22,16 @@
 
 ####Example usage:
 	$(function(){
-	//Sample vars
-	var login = 'ozipi';
-	var org = 'hackinvaders';
-	var repo = 'github.js'
+		//Sample vars
+		var login = 'ozipi';
+		var org = 'hackinvaders';
+		var repo = 'github.js'
 
-	//Create the instance
-	gitinfo = new Github('ozipi');
+		//Create the instance
+		gitinfo = new Github('ozipi');
 
-	gitinfo.getUserInfo(login, $.proxy(_getUserInfo_successHandler, this));		
-	});
+		gitinfo.getUserInfo(login, $.proxy(_getUserInfo_successHandler, this));		
+		});
 
 	function _getUserInfo_successHandler(result) {
 		info.users = result;
