@@ -1,14 +1,15 @@
 function Github (login){
-	//Class definition
+	// Class definition
 	this.urlBase = 'https://api.github.com';
 	this.login = login;
 
-	//Info
+	// Info
 	this.data = {};
+	this.data.repos = {};	
 	this.data.users = {};
 	this.data.meta = {};	
 
-	//Paths
+	// Paths
 	this.paths = {};	
 	this.paths.publicUsers = 'users';
 	this.paths.privateUsers = 'user';	
@@ -23,6 +24,8 @@ function Github (login){
 	this.callback = null;
 	
   // Public Info methods  
+
+	// Users
 	this.getUserInfo = function(user, callback, data){
 		//Init
 		if (user === undefined || user === ''){
@@ -43,11 +46,34 @@ function Github (login){
 		$.getService("github").getUserInfo(
 			{user: user, info: this, data: data},
 			$.proxy(this._getUserInfo_successHandler, this)
-		);
-		
+		);		
 	};
 	
+	this.getUserRepos = function(user, callback, data){
+		//Init
+		if (user === undefined || user === ''){
+			user = this.login;
+		}
+		
+		if (data === undefined){
+			data = {};			
+		}
+		
+		/*if (this._checkUsersRepos(user) != null){
+				//Already on cache
+				return;
+		}*/
+		
+		this.callback = callback;
+		
+		$.getService("github").getUserRepos(
+			{user: user, info: this, data: data},
+			$.proxy(this._getUserRepos_successHandler, this)
+		);		
+	};	
+	
 	// Success Handlers
+	// Users	
 	this._getUserInfo_successHandler = function(result){
 		if (this._checkMeta(result.meta) != null){
 			this.data.users[result.data.login] = $.extend(true, {}, result.data);
@@ -62,6 +88,21 @@ function Github (login){
 			console.log(result.data.message);
 		}
 	};
+	
+	this._getUserRepos_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repos[result.data.login] = $.extend(true, {}, result.data);
+			console.log('this.repos ->', this.data.repos);		
+			
+			if (this.callback != null){
+				this.callback(result.data);
+				//this.callback = null;
+			}
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
 	
 	// Helpers
 	this._checkMeta = function(meta){
