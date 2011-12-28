@@ -1,4 +1,5 @@
-## Github v3 Api Javascript library
+## Github v3 Api Javascript library 
+###[(http://developer.github.com)](http://developer.github.com/v3/)
 
 ####Dependencies:
 * JQuery
