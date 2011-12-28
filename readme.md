@@ -36,3 +36,13 @@
 	function _getUserInfo_successHandler(result) {
 		info.users = result;
 	};
+	
+
+####RoadMap:
+- Call queue
+- Min Builds
+- Missing Public Methods (Gists, Git Data, Issues, Orgs, Pull Requests, Repos, Users)
+- Auth methods
+- Missing Private Methods
+- Remove Jquery and servicelocator dependencies 
+- Add tests (?)
