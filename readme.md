@@ -1,7 +1,7 @@
 ## Github v3 Api Javascript library 
 ###[(http://developer.github.com)](http://developer.github.com/v3/)
 
-####Dependencies:
+####External Dependencies:
 * JQuery
 * jquery.servicelocator.js
 
@@ -9,19 +9,14 @@
 * services.github.js
 * github.js
 
-####Available Methods:
-* gitinfo.getUserRepos(login, handler);			
-* gitinfo.getOrgRepos(org, handler);	
-* gitinfo.getRepo(login, repo, handler);		
-* gitinfo.getRepoContributors(login, repo, handler);			
-* gitinfo.getRepoLanguages(login, repo, handler);				
-* gitinfo.getRepoTeams(login, repo, handler);				
-* gitinfo.getRepoTags(login, repo, handler);					
-* gitinfo.getRepoBranches(login, repo, handler);						
-* gitinfo.getRepoCommits(login, repo, handler);							
+####Html Import:
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../plugins/jquery.servicelocator.js"></script>
+	
+	<script type="text/javascript" src="../src/services.github.js"></script>
+	<script type="text/javascript" src="../src/github.js"></script>
 
-
-####Example usage:
+####Javascript:
 	$(function(){
 		//Sample vars
 		var login = 'ozipi';
@@ -37,7 +32,19 @@
 	function _getUserInfo_successHandler(result) {
 		info.users = result;
 	};
+
 	
+####Available Methods:
+* .getUserRepos(login, handler);			
+* .getOrgRepos(org, handler);	
+* .getRepo(login, repo, handler);		
+* .getRepoContributors(login, repo, handler);			
+* .getRepoLanguages(login, repo, handler);				
+* .getRepoTeams(login, repo, handler);				
+* .getRepoTags(login, repo, handler);					
+* .getRepoBranches(login, repo, handler);						
+* .getRepoCommits(login, repo, handler);
+
 
 ####RoadMap:
 - Call queue
