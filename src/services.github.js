@@ -4,7 +4,7 @@ $.addService("github", {
 	// http://developer.github.com/v3/users/
 	getUserInfo: function(data, success, error)
 	{
-		//End url format https://api.github.com/users/ozipi
+		//End url format https://api.github.com/users/ozipi ***
 		var url = data.info.urlBase  + '/' + data.info.paths.publicUsers + '/' + data.user;
 		//console.log('github::', data.info, data);				
 		this.sendRequest(url, data.data, success);
@@ -20,7 +20,7 @@ $.addService("github", {
 	
 	//Repos
 	getUserRepos: function(data, success, error){
-		//End url format https://api.github.com/users/ozipi/repos
+		//End url format https://api.github.com/users/ozipi/repos ***
 		var url = data.info.urlBase  + '/' + data.info.paths.publicUsers + '/' + data.user + '/' + data.info.paths.repos;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
@@ -34,35 +34,35 @@ $.addService("github", {
 	},
 	
 	getOrgRepos: function(data, success, error){
-		//End url format https://api.github.com/orgs/hackinvaders/repos
-		var url = data.info.urlBase + '/' + data.info.paths.organization + '/' + data.org + '/' + data.info.paths.repos;
-		//console.log('github::', data.info, data, url);				
+		//End url format https://api.github.com/orgs/hackinvaders/repos ***
+		var url = data.info.urlBase + '/' + data.info.paths.organization + '/' + data.user + '/' + data.info.paths.repos;
+		//console.log('getOrgRepos::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	
 	getRepo: function(data, success, error){
-		//End url format https://api.github.com/repos/ozipi/github.js
+		//End url format https://api.github.com/repos/ozipi/github.js ***
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo;
-		//console.log('github::', data.info, data, url);				
+		//console.log('getRepo::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},
 	
 	getRepoContributors: function(data, success, error){
-		//End url format https://api.github.com/repos/ozipi/github.js/contributors
+		//End url format https://api.github.com/repos/ozipi/github.js/contributors ***
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.contributors;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	
 	getRepoLanguages: function(data, success, error){
-		//End url format https://api.github.com/repos/ozipi/github.js/languages
+		//End url format https://api.github.com/repos/ozipi/github.js/languages ***
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.languages;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	
 	getRepoTeams: function(data, success, error){
-		//End url format https://api.github.com/repos/ozipi/github.js/teams
+		//End url format https://api.github.com/repos/ozipi/github.js/teams ***
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.teams;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
@@ -71,7 +71,7 @@ $.addService("github", {
 	getRepoTags: function(data, success, error){
 		//End url format https://api.github.com/repos/ozipi/github.js/tags
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.tags;
-		//console.log('github::', data.info, data, url);				
+		console.log('getRepoTags::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	
