@@ -5,7 +5,7 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
   <script type="text/javascript" src="../plugins/jquery.servicelocator.js"></script>
-  <script type="text/javascript" src="../src/services/service.users.js"></script>
+  <script type="text/javascript" src="../src/services.github.js"></script>
   <script type="text/javascript" src="../src/github.js"></script>
   <script type="text/javascript" src="index.js"></script>
 </head>
@@ -13,8 +13,12 @@
 	<div>
 		<img src="monocle.jpeg"/> <br/>
 	
-	   Github: <input type="text" id="login">
-	   <button id='getInfo'>Info!</button>
+		Github: <select>
+			<option value'users'>Users</option>
+			<option value'repo'>Repos</option>
+		</select>
+		<input type="text" id="login">
+		<button id='getInfo'>Info!</button>
 	</div>
 	<div>
 		

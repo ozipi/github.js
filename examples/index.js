@@ -16,17 +16,16 @@ function _onKeypress (event) {
 
 function _getInfo_click (event) {
 	var login = $('#login').val();
-	console.log('login', login);
-	gitinfo.getUserInfo(login);
+	gitinfo.getUserInfo(login, $.proxy(_getUserInfo_successHandler, this));
 }
 
 // v
-function _getUserInfo (argument) {
-	console.log('gitinfo.getUserInfo()::', gitinfo.getUserInfo());
+function _getUserInfo (result) {
+	console.log('gitinfo.getUserInfo()::', result);
 }
 	
 function _getUserInfo_successHandler(result) {
-	console.log('getUserInfo_successHandler::', result);		
+	console.log('gitinfo::getUserInfo_successHandler::', result);		
 	return result;
 };
 

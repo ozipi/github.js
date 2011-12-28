@@ -10,12 +10,20 @@ function Github (login){
 
 	//Paths
 	this.paths = {};	
-	this.paths.publicUsers = '/users/';
-	this.paths.privateUsers = '/user';	
+	this.paths.publicUsers = 'users';
+	this.paths.privateUsers = 'user';	
+	this.paths.repos = 'repos';		
+	this.paths.organization = 'orgs';			
+	this.paths.contributors = 'contributors';
+	this.paths.languages = 'languages';
+	this.paths.teams = 'teams';	
+	this.paths.branches = 'branches';		
+	this.paths.commits = 'commits';			
 	
+	this.callback = null;
 	
   // Public Info methods  
-	this.getUserInfo = function(user, data){
+	this.getUserInfo = function(user, callback, data){
 		//Init
 		if (user === undefined || user === ''){
 			user = this.login;
@@ -30,6 +38,8 @@ function Github (login){
 				return;
 		}
 		
+		this.callback = callback;
+		
 		$.getService("github").getUserInfo(
 			{user: user, info: this, data: data},
 			$.proxy(this._getUserInfo_successHandler, this)
@@ -37,19 +47,23 @@ function Github (login){
 		
 	};
 	
-	//Success Handlers
+	// Success Handlers
 	this._getUserInfo_successHandler = function(result){
-		//refactor
 		if (this._checkMeta(result.meta) != null){
 			this.data.users[result.data.login] = $.extend(true, {}, result.data);
-			console.log('this.users ->', this.data.users, result);		
+			console.log('this.users ->', this.data.users);		
+			
+			if (this.callback != null){
+				this.callback(result.data);
+				//this.callback = null;
+			}
 		}
 		else{
 			console.log(result.data.message);
 		}
 	};
 	
-	//Helpers
+	// Helpers
 	this._checkMeta = function(meta){
 		this.data.meta = meta;
 		if (this._checkGithubStatus(this.data.meta) == null){
@@ -57,13 +71,13 @@ function Github (login){
 
 			return null;
 		}
-		console.log('ಠ_ಠ', meta['X-RateLimit-Remaining']);
+		//console.log('ಠ_ಠ', meta['X-RateLimit-Remaining']);
 		return "ಠ_ಠ";
 	};
 	
 	this._checkGithubStatus = function(meta){
 		console.log('meta:', meta);
-		if (meta.status == 401){
+		if (meta.status == 401 || meta.status == 404){
 			return null;
 		}
 		return "ಠ_ಠ";
