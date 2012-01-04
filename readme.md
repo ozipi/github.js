@@ -34,7 +34,7 @@
 	};
 
 	
-####Available Methods:
+#### Available Methods:
 * .getUserRepos(login, handler);			
 * .getOrgRepos(org, handler);	
 * .getRepo(login, repo, handler);		
@@ -44,6 +44,55 @@
 * .getRepoTags(login, repo, handler);					
 * .getRepoBranches(login, repo, handler);						
 * .getRepoCommits(login, repo, handler);
+
+#### Gists
+* .getUserGists(login, $.proxy(_getUserGists_successHandler, this));		
+* .getUserGist(login, gistId, $.proxy(_getUserGist_successHandler, this));		
+* .getGistComments(login, gistId, $.proxy(_getGistComments_successHandler, this));		
+* .getGistCommentId(login, gistId, gistCommentId, $.proxy(_getGistCommentsId_successHandler, this));		
+
+#### Users	
+* .getUserInfo(login, $.proxy(_getUserInfo_successHandler, this));		
+* .getUserFollowers(login, $.proxy(_getUserFollowers_successHandler, this));		
+* .getUserFollowing(login, $.proxy(_getUserFollowing_successHandler, this));					
+
+#### Repos
+* .getUserRepos(login, $.proxy(_getUserRepos_successHandler, this));			
+* .getOrgRepos(org, $.proxy(_getOrgRepos_successHandler, this));	
+* .getRepo(login, repo, $.proxy(_getRepo_successHandler, this));		
+* .getRepoContributors(login, repo, $.proxy(_getRepoContributors_successHandler, this));			
+* .getRepoLanguages(login, repo, $.proxy(_getRepoLanguages_successHandler, this));				
+* .getRepoTeams(login, repo, $.proxy(_getRepoTeams_successHandler, this));				
+* .getRepoTags(login, repo, $.proxy(_getRepoTags_successHandler, this));					
+* .getRepoBranches(login, repo, $.proxy(_getRepoBranches_successHandler, this));						
+
+#### Repos - Collaborators
+getRepoCollaborators
+checkRepoCollaborator
+
+#### Repos - Commits	
+* .getRepoCommits(login, repo, $.proxy(_getRepoCommits_successHandler, this));							
+getRepoCommit
+getRepoComments
+getRepoCommitComments
+getRepoComment
+compareRepoCommits
+
+#### Repos - Downloads
+getRepoDownloads
+getRepoDownload
+
+#### Repos - Forks
+getRepoForks
+
+#### Repos - Watchers
+getRepoWatchers
+getReposWatchedByUser
+
+#### Repos - Hooks
+getRepoHooks
+getRepoHook
+testRepoHook
 
 
 ####RoadMap:

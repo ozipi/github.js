@@ -69,7 +69,47 @@ function _startTests() {
 	//gitinfo.getRepoTeams(login, repo, $.proxy(_getRepoTeams_successHandler, this));				
 	//gitinfo.getRepoTags(login, repo, $.proxy(_getRepoTags_successHandler, this));					
 	//gitinfo.getRepoBranches(login, repo, $.proxy(_getRepoBranches_successHandler, this));						
+	
+	// ##################################################################################
+	//  Repos - Collaborators
+	// ##################################################################################	
+	// getRepoCollaborators
+	// checkRepoCollaborator
+	
+	// ##################################################################################
+	//  Repos - Commits
+	// ##################################################################################	
 	//gitinfo.getRepoCommits(login, repo, $.proxy(_getRepoCommits_successHandler, this));							
+	// getRepoCommit
+	// getRepoComments
+	// getRepoCommitComments
+	// getRepoComment
+	// compareRepoCommits
+
+	// ##################################################################################
+	// Repos - Downloads
+	// ##################################################################################
+	// getRepoDownloads
+	// getRepoDownload
+	
+	// ##################################################################################
+	// Repos - Forks
+	// ##################################################################################	
+	// getRepoForks
+
+	// ##################################################################################
+	// Repos - Watchers
+	// ##################################################################################	
+	// getRepoWatchers
+	// getReposWatchedByUser
+
+	// ##################################################################################
+	// Repos - Hooks
+	// ##################################################################################	
+	//getRepoHooks
+	//getRepoHook
+	//testRepoHook
+	
 	
 	console.log('Tests:', info);
 };
