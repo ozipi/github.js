@@ -21,6 +21,7 @@ function Github (login){
 	this.paths.publicUsers = 'users';
 	this.paths.privateUsers = 'user';	
 	this.paths.emails = 'emails';		
+	this.paths.followers = 'followers';			
 	this.paths.repos = 'repos';		
 	this.paths.organization = 'orgs';			
 	this.paths.contributors = 'contributors';
@@ -36,6 +37,7 @@ function Github (login){
 	this.paths.watchers = 'watchers';
 	this.paths.watched = 'watched';	
 	this.paths.hooks = 'hooks';		
+	this.paths.gists = 'gists';			
 	
 	this.callback = null;
 	

@@ -1,48 +1,50 @@
 $.addService("github", {
 
+
 	// ##################################################################################
-	//  Users
-	// http://developer.github.com/v3/users/
+	//  Gists
+	// http://developer.github.com/v3/gists/
 	// ##################################################################################
-	getUserInfo: function(data, success, error)
-	{
-		//End url format https://api.github.com/users/ozipi ***
-		var url = data.info.urlBase  + '/' + data.info.paths.publicUsers + '/' + data.user;
-		//console.log('github::', data.info, data);				
+	getUserGists: function(data, success, error){
+		//End url format https://api.github.com/users/ozipi/gists
+		var url = data.info.urlBase  + '/' + data.info.paths.publicUsers + '/' + data.user + '/' + data.info.paths.gists;
+		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},
 	
-	getUserPrivateInfo: function(data, success, error)
-	{
-		//End url format https://api.github.com/user
-		var url = data.info.urlBase + '/' + data.info.paths.privateUsers;
+	getUserGist: function(data, success, error){
+		//End url format https://api.github.com/gists/153045
+		var url = data.info.urlBase  + '/' + data.info.paths.publicUsers + '/' + data.user + '/' + data.info.paths.gists + '/' + data.gistId;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	
 	// ##################################################################################
-	//  Users - Emails               Pending Auth req
-	// http://developer.github.com/v3/users/emails
+	//  Git Data
+	// http://developer.github.com/v3/pulls/
 	// ##################################################################################
-	getUserMails: function(data, success, error)
-	{
-		//End url format https://api.github.com/ozipi/emails
-		var url = data.info.urlBase + '/' + data.info.paths.emails;
-		//console.log('github::', data.info, data, url);				
-		this.sendRequest(url, data.data, success);
-	},	
 
 	// ##################################################################################
-	//  Users - Followers
-	// http://developer.github.com/v3/followers/
-	// ##################################################################################		
+	//  Issues
+	// http://developer.github.com/v3/pulls/
+	// ##################################################################################
+
+	// ##################################################################################
+	//  Orgs
+	// http://developer.github.com/v3/pulls/
+	// ##################################################################################
+
+	// ##################################################################################
+	//  Pull Requests
+	// http://developer.github.com/v3/pulls/
+	// ##################################################################################
 	
 	// ##################################################################################
 	//  Repos
 	// http://developer.github.com/v3/repos/
 	// ##################################################################################
 	getUserRepos: function(data, success, error){
-		//End url format https://api.github.com/users/ozipi/repos ***
+		//End url format https://api.github.com/users/ozipi/repos
 		var url = data.info.urlBase  + '/' + data.info.paths.publicUsers + '/' + data.user + '/' + data.info.paths.repos;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
@@ -56,35 +58,35 @@ $.addService("github", {
 	},
 	
 	getOrgRepos: function(data, success, error){
-		//End url format https://api.github.com/orgs/hackinvaders/repos ***
+		//End url format https://api.github.com/orgs/hackinvaders/repos
 		var url = data.info.urlBase + '/' + data.info.paths.organization + '/' + data.user + '/' + data.info.paths.repos;
 		//console.log('getOrgRepos::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	
 	getRepo: function(data, success, error){
-		//End url format https://api.github.com/repos/ozipi/github.js ***
+		//End url format https://api.github.com/repos/ozipi/github.js
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo;
 		//console.log('getRepo::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},
 	
 	getRepoContributors: function(data, success, error){
-		//End url format https://api.github.com/repos/ozipi/github.js/contributors ***
+		//End url format https://api.github.com/repos/ozipi/github.js/contributors 
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.contributors;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	
 	getRepoLanguages: function(data, success, error){
-		//End url format https://api.github.com/repos/ozipi/github.js/languages ***
+		//End url format https://api.github.com/repos/ozipi/github.js/languages 
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.languages;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	
 	getRepoTeams: function(data, success, error){
-		//End url format https://api.github.com/repos/ozipi/github.js/teams ***
+		//End url format https://api.github.com/repos/ozipi/github.js/teams 
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.teams;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
@@ -109,14 +111,14 @@ $.addService("github", {
 	// http://developer.github.com/v3/repos/collaborators/
 	// ##################################################################################	
 	getRepoCollaborators: function(data, success, error){
-		//End url format https://api.github.com/repos/ozipi/github.js/contributors ***
+		//End url format https://api.github.com/repos/ozipi/github.js/contributors 
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.collaborators;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},
 	
 	checkRepoCollaborator: function(data, success, error){
-		//End url format https://api.github.com/repos/ozipi/github.js/contributors ***
+		//End url format https://api.github.com/repos/ozipi/github.js/contributors 
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.collaborators + '/'  + data.collaborator;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
@@ -244,6 +246,57 @@ $.addService("github", {
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},
+	
+
+	// ##################################################################################
+	//  Users
+	// http://developer.github.com/v3/users/
+	// ##################################################################################
+	getUserInfo: function(data, success, error)
+	{
+		//End url format https://api.github.com/users/ozipi 
+		var url = data.info.urlBase  + '/' + data.info.paths.publicUsers + '/' + data.user;
+		//console.log('github::', data.info, data);				
+		this.sendRequest(url, data.data, success);
+	},
+	
+	getUserPrivateInfo: function(data, success, error)
+	{
+		//End url format https://api.github.com/user
+		var url = data.info.urlBase + '/' + data.info.paths.privateUsers;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
+	// ##################################################################################
+	//  Users - Emails               Pending Auth req
+	// http://developer.github.com/v3/users/emails
+	// ##################################################################################
+	getUserMails: function(data, success, error)
+	{
+		//End url format https://api.github.com/ozipi/emails
+		var url = data.info.urlBase + '/' + data.info.paths.emails;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+
+	// ##################################################################################
+	//  Users - Followers
+	// http://developer.github.com/v3/followers/
+	// ##################################################################################		
+	getUserFollowers: function(data, success, error)
+	{
+		//End url format https://api.github.com/users/ozipi/followers
+		var url = data.info.urlBase + '/' + data.info.paths.users + '/' + data.user + '/' + data.info.paths.followers;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
+	// ##################################################################################
+	//  Users - Keys								Pending Auth req
+	// http://developer.github.com/v3/Keys/
+	// ##################################################################################	
+	
 
 	// ##################################################################################
 	// General request template
