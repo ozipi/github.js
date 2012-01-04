@@ -290,7 +290,7 @@ $.addService("github", {
 	{
 		//End url format https://api.github.com/ozipi/emails
 		var url = data.info.urlBase + '/' + data.user + '/' + data.info.paths.emails;
-		//console.log('github::', data.info, data, url);				
+		console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 
@@ -301,7 +301,7 @@ $.addService("github", {
 	getUserFollowers: function(data, success, error)
 	{
 		//End url format https://api.github.com/users/ozipi/followers
-		var url = data.info.urlBase + '/' + data.info.paths.users + '/' + data.user + '/' + data.info.paths.followers;
+		var url = data.info.urlBase + '/' + data.info.paths.publicUsers + '/' + data.user + '/' + data.info.paths.followers;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
@@ -309,8 +309,8 @@ $.addService("github", {
 	getUserFollowing: function(data, success, error)
 	{
 		//End url format https://api.github.com/users/ozipi/followers
-		var url = data.info.urlBase + '/' + data.info.paths.users + '/' + data.user + '/' + data.info.paths.following;
-		//console.log('github::', data.info, data, url);				
+		var url = data.info.urlBase + '/' + data.info.paths.publicUsers + '/' + data.user + '/' + data.info.paths.following;
+		console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	

@@ -10,6 +10,8 @@ function Github (login){
 	this.data.usersGists = {};
 	this.data.usersGist = {};	
 	this.data.usersGistComments = {};		
+	this.data.usersFollowers = {};			
+	this.data.usersFollowing = {};	
 	this.data.repos = {};		
 	this.data.org = {};	
 	this.data.repo = {};		
@@ -24,7 +26,8 @@ function Github (login){
 	this.paths.publicUsers = 'users';
 	this.paths.privateUsers = 'user';	
 	this.paths.emails = 'emails';		
-	this.paths.followers = 'followers';			
+	this.paths.followers = 'followers';
+	this.paths.following = 'following';
 	this.paths.repos = 'repos';		
 	this.paths.organization = 'orgs';			
 	this.paths.contributors = 'contributors';

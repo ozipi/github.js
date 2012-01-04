@@ -54,6 +54,9 @@ function _startTests() {
 	//  Users
 	// ##################################################################################			
 	//gitinfo.getUserInfo(login, $.proxy(_getUserInfo_successHandler, this));		
+	//gitinfo.getUserMails(login, $.proxy(_getUserMails_successHandler, this));		 <- auth
+	//gitinfo.getUserFollowers(login, $.proxy(_getUserFollowers_successHandler, this));		
+	//gitinfo.getUserFollowing(login, $.proxy(_getUserFollowing_successHandler, this));					
 	
 	// ##################################################################################
 	//  Repos
@@ -99,6 +102,24 @@ function _getGistCommentsId_successHandler(result) {
 function _getUserInfo_successHandler(result) {
 	//console.log('gitinfo::getUserInfo_successHandler::', result);		
 	info.users = result;
+	return result;
+};
+
+function _getUserMails_successHandler(result) {
+	//console.log('gitinfo::getUserInfo_successHandler::', result);		
+	info.usersMail = result;
+	return result;
+};
+
+function _getUserFollowers_successHandler(result) {
+	//console.log('gitinfo::getUserInfo_successHandler::', result);		
+	info.usersFollowers = result;
+	return result;
+};
+
+function _getUserFollowing_successHandler(result) {
+	//console.log('gitinfo::getUserInfo_successHandler::', result);		
+	info.usersFollowing = result;
 	return result;
 };
 
