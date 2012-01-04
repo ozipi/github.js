@@ -1,22 +1,22 @@
 ## Github v3 Api Javascript library 
 ###[(http://developer.github.com)](http://developer.github.com/v3/)
 
-####External Dependencies:
+###External Dependencies:
 * JQuery
 * jquery.servicelocator.js
 
-####Library Files:
+###Library Files:
 * services.github.js
 * github.js
 
-####Html Import:
+###Html Import:
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="../plugins/jquery.servicelocator.js"></script>
 	
 	<script type="text/javascript" src="../src/services.github.js"></script>
 	<script type="text/javascript" src="../src/github.js"></script>
 
-####Javascript:
+###Javascript:
 	$(function(){
 		//Sample vars
 		var login = 'ozipi';
