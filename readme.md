@@ -34,17 +34,7 @@
 	};
 
 	
-#### Available Methods:
-* .getUserRepos(login, handler);			
-* .getOrgRepos(org, handler);	
-* .getRepo(login, repo, handler);		
-* .getRepoContributors(login, repo, handler);			
-* .getRepoLanguages(login, repo, handler);				
-* .getRepoTeams(login, repo, handler);				
-* .getRepoTags(login, repo, handler);					
-* .getRepoBranches(login, repo, handler);						
-* .getRepoCommits(login, repo, handler);
-
+### Available Methods:
 #### Gists
 * .getUserGists(login, $.proxy(_getUserGists_successHandler, this));		
 * .getUserGist(login, gistId, $.proxy(_getUserGist_successHandler, this));		
@@ -66,36 +56,10 @@
 * .getRepoTags(login, repo, $.proxy(_getRepoTags_successHandler, this));					
 * .getRepoBranches(login, repo, $.proxy(_getRepoBranches_successHandler, this));						
 
-#### Repos - Collaborators
-getRepoCollaborators
-checkRepoCollaborator
-
 #### Repos - Commits	
 * .getRepoCommits(login, repo, $.proxy(_getRepoCommits_successHandler, this));							
-getRepoCommit
-getRepoComments
-getRepoCommitComments
-getRepoComment
-compareRepoCommits
 
-#### Repos - Downloads
-getRepoDownloads
-getRepoDownload
-
-#### Repos - Forks
-getRepoForks
-
-#### Repos - Watchers
-getRepoWatchers
-getReposWatchedByUser
-
-#### Repos - Hooks
-getRepoHooks
-getRepoHook
-testRepoHook
-
-
-####RoadMap:
+#### == RoadMap ==:
 - Call queue
 - Min Builds
 - Missing Public Methods (Gists, Git Data, Issues, Orgs, Pull Requests, Repos, Users)
