@@ -35,11 +35,29 @@ function _getInfo_click (event) {
 };
 
 function _startTests() {
-	var login = 'ozipi';
+	var login = 'ozipi';	
+	var gistId = '153045';
+	var gistCommentId = '153045';	
 	var org = 'hackinvaders';
 	var repo = 'github.js'
 	
+	
+	// ##################################################################################
+	//  Gists
+	// ##################################################################################		
+	gitinfo.getUserGists(login, $.proxy(_getUserGists_successHandler, this));		
+	//gitinfo.getUserGist(login, gistId, $.proxy(_getUserGist_successHandler, this));		
+	//gitinfo.getGistComments(login, gistId, $.proxy(_getGistComments_successHandler, this));		
+	//gitinfo.getGistCommentId(login, gistId, gistCommentId, $.proxy(_getGistCommentsId_successHandler, this));		
+	
+	// ##################################################################################
+	//  Users
+	// ##################################################################################			
 	//gitinfo.getUserInfo(login, $.proxy(_getUserInfo_successHandler, this));		
+	
+	// ##################################################################################
+	//  Repos
+	// ##################################################################################	
 	//gitinfo.getUserRepos(login, $.proxy(_getUserRepos_successHandler, this));			
 	//gitinfo.getOrgRepos(org, $.proxy(_getOrgRepos_successHandler, this));	
 	//gitinfo.getRepo(login, repo, $.proxy(_getRepo_successHandler, this));		
@@ -48,12 +66,36 @@ function _startTests() {
 	//gitinfo.getRepoTeams(login, repo, $.proxy(_getRepoTeams_successHandler, this));				
 	//gitinfo.getRepoTags(login, repo, $.proxy(_getRepoTags_successHandler, this));					
 	//gitinfo.getRepoBranches(login, repo, $.proxy(_getRepoBranches_successHandler, this));						
-	gitinfo.getRepoCommits(login, repo, $.proxy(_getRepoCommits_successHandler, this));							
+	//gitinfo.getRepoCommits(login, repo, $.proxy(_getRepoCommits_successHandler, this));							
 	
 	console.log('Tests:', info);
 };
 	
 //Success Handlers
+function _getUserGists_successHandler(result) {
+	console.log('gitinfo::_getUserGists_successHandler::', result);		
+	info.gists = result;
+	return result;
+};
+
+function _getUserGist_successHandler(result) {
+	console.log('gitinfo::_getUserGist_successHandler::', result);		
+	info.gist = result;
+	return result;
+};
+
+function _getGistComments_successHandler(result) {
+	console.log('gitinfo::_getGistComments_successHandler::', result);		
+	info.gistsComments = result;
+	return result;
+};
+
+function _getGistCommentsId_successHandler(result) {
+	console.log('gitinfo::_getGistCommentsId_successHandler::', result);		
+	info.gistsCommentsId = result;
+	return result;
+};
+
 function _getUserInfo_successHandler(result) {
 	//console.log('gitinfo::getUserInfo_successHandler::', result);		
 	info.users = result;

@@ -7,6 +7,9 @@ function Github (login){
 	this.data = {};
 	this.data.meta = {};		
 	this.data.users = {};
+	this.data.usersGists = {};
+	this.data.usersGist = {};	
+	this.data.usersGistComments = {};		
 	this.data.repos = {};		
 	this.data.org = {};	
 	this.data.repo = {};		
@@ -41,9 +44,81 @@ function Github (login){
 	
 	this.callback = null;
 	
-  // Public Info methods  
+  
+	// ##################################################################################
+	//
+	// Public Info methods  
+	// 
+	// ##################################################################################
 
-	// Users
+	// ##################################################################################
+	//  Gists
+	// http://developer.github.com/v3/repos/
+	// ##################################################################################
+	this.getUserGists = function(user, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		//(this._checkUsersInfo(user, 'users') != null) ? return; : null;
+		if(this._checkCacheInfo(user, 'userGists') != null){
+			return;
+		}
+		this.callback = callback;
+		
+		$.getService("github").getUserGists(
+			{user: user, info: this, data: data},
+			$.proxy(this._getUserGists_successHandler, this)
+		);		
+	};	
+	
+	this.getUserGist = function(user, gistId, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		//(this._checkUsersInfo(user, 'users') != null) ? return; : null;
+		if(this._checkCacheInfo(user, 'userGist') != null){
+			return;
+		}
+		this.callback = callback;
+		
+		$.getService("github").getUserGist(
+			{user: user, gistId: gistId, info: this, data: data},
+			$.proxy(this._getUserGist_successHandler, this)
+		);		
+	};	
+	
+	this.getGistComments = function(user, gistId, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		//(this._checkUsersInfo(user, 'users') != null) ? return; : null;
+		if(this._checkCacheInfo(user, 'gistComments') != null){
+			return;
+		}
+		this.callback = callback;
+		
+		$.getService("github").getGistComments(
+			{user: user, gistId: gistId, info: this, data: data},
+			$.proxy(this._getGistComments_successHandler, this)
+		);		
+	};	
+	
+	this.getGistCommentId = function(user, gistId, commentId, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		//(this._checkUsersInfo(user, 'users') != null) ? return; : null;
+		if(this._checkCacheInfo(user, 'gistComments') != null){
+			return;
+		}
+		this.callback = callback;
+		
+		$.getService("github").getGistCommentId(
+			{user: user, gistId: gistId, commentId: commentId, info: this, data: data},
+			$.proxy(this._getGistCommentId_successHandler, this)
+		);		
+	};
+	
+	// ##################################################################################
+	//  Users
+	// http://developer.github.com/v3/users/
+	// ##################################################################################
 	this.getUserInfo = function(user, callback, data){
 		(user === undefined || user === '')? user = this.login : null;
 		(data === undefined) ? data = {} : null;
@@ -57,10 +132,57 @@ function Github (login){
 			{user: user, info: this, data: data},
 			$.proxy(this._getUserInfo_successHandler, this)
 		);		
-	};
+	};	
 	
+	this.getUserMails = function(user, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		//(this._checkUsersInfo(user, 'users') != null) ? return; : null;
+		if(this._checkCacheInfo(user, 'usersMails') != null){
+			return;
+		}
+		this.callback = callback;
+		
+		$.getService("github").getUserMails(
+			{user: user, info: this, data: data},
+			$.proxy(this._getUserMails_successHandler, this)
+		);		
+	};	
 	
-	//Repos
+	this.getUserFollowers = function(user, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		//(this._checkUsersInfo(user, 'users') != null) ? return; : null;
+		if(this._checkCacheInfo(user, 'usersFollowers') != null){
+			return;
+		}
+		this.callback = callback;
+		
+		$.getService("github").getUserFollowers(
+			{user: user, info: this, data: data},
+			$.proxy(this._getUserFollowers_successHandler, this)
+		);		
+	};		
+	
+	this.getUserFollowing = function(user, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		//(this._checkUsersInfo(user, 'users') != null) ? return; : null;
+		if(this._checkCacheInfo(user, 'usersFollowing') != null){
+			return;
+		}
+		this.callback = callback;
+		
+		$.getService("github").getUserFollowing(
+			{user: user, info: this, data: data},
+			$.proxy(this._getUserFollowing_successHandler, this)
+		);		
+	};	
+	
+	// ##################################################################################
+	//  Repos
+	// http://developer.github.com/v3/repos/
+	// ##################################################################################
 	this.getUserRepos = function(user, callback, data){
 		(user === undefined || user === '')? user = this.login : null;
 		(data === undefined) ? data = {} : null;
@@ -77,7 +199,6 @@ function Github (login){
 		);		
 	};	
 	
-	//Org
 	this.getOrgRepos = function(user, callback, data){
 		(user === undefined || user === '')? user = this.login : null;
 		(data === undefined) ? data = {} : null;
@@ -94,7 +215,6 @@ function Github (login){
 		);		
 	};	
 	
-	//repo
 	this.getRepo = function(user, repo, callback, data){
 		(user === undefined || user === '')? user = this.login : null;
 		(data === undefined) ? data = {} : null;
@@ -207,10 +327,57 @@ function Github (login){
 		);		
 	};	
 	
-	
-	
+	// ##################################################################################	
+	//
 	// Success Handlers
-	// Users	
+	//
+	// ##################################################################################	
+	// ##################################################################################
+	//  Gists
+	// ##################################################################################	
+	this._getUserGists_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.usersGists[result.data.login] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};
+	
+	this._getUserGist_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.usersGist[result.data.login] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getGistComments_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.usersGistComments[result.data.login] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getGistCommentId_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.usersGistSingleComment[result.data.login] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	// ##################################################################################
+	//  Users
+	// ##################################################################################	
 	this._getUserInfo_successHandler = function(result){
 		if (this._checkMeta(result.meta) != null){
 			this.data.users[result.data.login] = $.extend(true, {}, result.data);
@@ -221,6 +388,39 @@ function Github (login){
 		}
 	};
 	
+	this._getUserMails_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.usersMails[result.data.login] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getUserFollowers_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.usersFollowers[result.data.login] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getUserFollowing_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.usersFollowing[result.data.login] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	// ##################################################################################
+	//  Repos
+	// ##################################################################################	
 	this._getUserRepos_successHandler = function(result){
 		if (this._checkMeta(result.meta) != null){
 			this.data.repos[this.lastIDCalled] = $.extend(true, {}, result.data);
