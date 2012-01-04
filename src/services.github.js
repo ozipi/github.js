@@ -1,7 +1,9 @@
 $.addService("github", {
 
-	// Users 
+	// ##################################################################################
+	//  Users
 	// http://developer.github.com/v3/users/
+	// ##################################################################################
 	getUserInfo: function(data, success, error)
 	{
 		//End url format https://api.github.com/users/ozipi ***
@@ -18,7 +20,27 @@ $.addService("github", {
 		this.sendRequest(url, data.data, success);
 	},	
 	
-	//Repos
+	// ##################################################################################
+	//  Users - Emails               Pending Auth req
+	// http://developer.github.com/v3/users/emails
+	// ##################################################################################
+	getUserMails: function(data, success, error)
+	{
+		//End url format https://api.github.com/ozipi/emails
+		var url = data.info.urlBase + '/' + data.info.paths.emails;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+
+	// ##################################################################################
+	//  Users - Followers
+	// http://developer.github.com/v3/followers/
+	// ##################################################################################		
+	
+	// ##################################################################################
+	//  Repos
+	// http://developer.github.com/v3/repos/
+	// ##################################################################################
 	getUserRepos: function(data, success, error){
 		//End url format https://api.github.com/users/ozipi/repos ***
 		var url = data.info.urlBase  + '/' + data.info.paths.publicUsers + '/' + data.user + '/' + data.info.paths.repos;
@@ -82,6 +104,28 @@ $.addService("github", {
 		this.sendRequest(url, data.data, success);
 	},	
 	
+	// ##################################################################################
+	// Repos - Collaborators
+	// http://developer.github.com/v3/repos/collaborators/
+	// ##################################################################################	
+	getRepoCollaborators: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/contributors ***
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.collaborators;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},
+	
+	checkRepoCollaborator: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/contributors ***
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.collaborators + '/'  + data.collaborator;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
+	// ##################################################################################
+	// Repos - Commits
+	// http://developer.github.com/v3/repos/commits/
+	// ##################################################################################	
 	getRepoCommits: function(data, success, error){
 		//End url format https://api.github.com/repos/ozipi/github.js/commits
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.commits;
@@ -89,7 +133,121 @@ $.addService("github", {
 		this.sendRequest(url, data.data, success);
 	},	
 	
+	getRepoCommit: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/commits/bba61daf28419a1762f6218fea3f96279e399371
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.commits + '/' + data.sha;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
+	getRepoComments: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/comments
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.comments;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
+	getRepoCommitComments: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/commits/bba61daf28419a1762f6218fea3f96279e399371/comments
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.commits + '/' + data.sha + '/' + data.info.paths.comments;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
+	getRepoComment: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/comments/822633
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.comments + '/' + data.commentid;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+
+	compareRepoCommits: function(data, success, error){
+		//End url format httpshttps://api.github.com/repos/ozipi/github.js/compare/bba61daf28419a1762f6218fea3f96279e399371...0f8a5590fa8d877b9193c383c4be7289e02eeb3f
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.compare + '/' + data.commitBase + '...' + data.commentHead;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},		
+	
+	// ##################################################################################
+	// Repos - Downloads
+	// http://developer.github.com/v3/repos/downloads
+	// ##################################################################################
+	getRepoDownloads: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/downloads
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.downloads;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
+	getRepoDownload: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/downloads/168855
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.downloads + '/' + data.downloadid;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},
+	
+	// ##################################################################################
+	// Repos - Forks
+	// http://developer.github.com/v3/repos/forks
+	// ##################################################################################	
+	getRepoForks: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/forks
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.forks;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},
+
+	// ##################################################################################
+	// Repos - Keys        implement later when authentication is ready
+	// http://developer.github.com/v3/repos/keys
+	// ##################################################################################
+
+	// ##################################################################################
+	// Repos - Watching
+	// http://developer.github.com/v3/repos/watching
+	// ##################################################################################
+	getRepoWatchers: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/watchers
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.watchers;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
+	getReposWatchedByUser: function(data, success, error){
+		//End url format https://api.github.com/users/ozipi/watched
+		var url = data.info.urlBase + '/' + data.info.paths.publicUsers + '/' + data.user + '/' + data.info.paths.watched;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
+	// ##################################################################################
+	// Repos - Hooks
+	// http://developer.github.com/v3/repos/hooks/
+	// ##################################################################################
+	getRepoHooks: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/watchers
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.hooks;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
+	getRepoHook: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/watchers
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.hooks + '/' + data.hookId;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},
+	
+	testRepoHook: function(data, success, error){
+		//End url format https://api.github.com/repos/ozipi/github.js/watchers
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.hooks + '/' + data.hookId  + '/' + data.test;
+		//console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},
+
+	// ##################################################################################
 	// General request template
+	// ##################################################################################
 	sendRequest: function(url, data, success)
 	{
 		//console.log('sendRequest::', url, data, success);	

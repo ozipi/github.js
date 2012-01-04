@@ -20,6 +20,7 @@ function Github (login){
 	this.paths = {};	
 	this.paths.publicUsers = 'users';
 	this.paths.privateUsers = 'user';	
+	this.paths.emails = 'emails';		
 	this.paths.repos = 'repos';		
 	this.paths.organization = 'orgs';			
 	this.paths.contributors = 'contributors';
@@ -28,6 +29,13 @@ function Github (login){
 	this.paths.tags = 'tags';		
 	this.paths.branches = 'branches';		
 	this.paths.commits = 'commits';			
+	this.paths.collaborators = 'collaborators';	
+	this.paths.comments = 'comments';					
+	this.paths.compare = 'compare';						
+	this.paths.forks = 'forks';							
+	this.paths.watchers = 'watchers';
+	this.paths.watched = 'watched';	
+	this.paths.hooks = 'hooks';		
 	
 	this.callback = null;
 	
