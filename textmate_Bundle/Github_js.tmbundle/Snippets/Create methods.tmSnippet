@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>//index.js
+gitinfo.${1:function_name}(login, repo, \$.proxy(_${1:function_name}_successHandler, this));		
+
+function _${1:function_name}_successHandler(result) {
+	console.log('gitinfo::_${1:function_name}_successHandler::', result);		
+	info.${2:array_save} = result;
+	return result;
+};
+
+//github.js
+this.${1:function_name} = function(${4:user}, repo, callback, data){
+	(user === undefined || user === '')? user = this.login : null;
+	(data === undefined) ? data = {} : null;
+	if(this._checkCacheInfo(${4:user}, '${3:userGists}') != null){
+		return;
+	}
+	this.callback = callback;
+	this.lastIDCalled = repo;	
+
+	\$.getService("github").${1:function_name}(
+		{user: user, repo: repo, info: this, data: data},
+		\$.proxy(this._${1:function_name}_successHandler, this)
+	);		
+};
+
+this._${1:function_name}_successHandler = function(result){
+	if (this._checkMeta(result.meta) != null){
+		this.data.${3:userGists}[this.lastIDCalled] = \$.extend(true, {}, result.data);
+		this._getCallback(result.data);
+	}
+	else{
+		console.log(result.data.message);
+	}
+};
+
+//services.github.js
+${1:function_name}: function(data, success, error){
+	//End url format ${5:https://api.github.com/}
+	var url = data.info.urlBase  + '/' + data.info.paths.publicUsers + '/' + data.user + '/' + data.info.paths.gists;
+	//console.log('github::', data.info, data, url);				
+	this.sendRequest(url, data.data, success);
+},</string>
+	<key>name</key>
+	<string>Create methods</string>
+	<key>tabTrigger</key>
+	<string>gm</string>
+	<key>uuid</key>
+	<string>2A5F97DA-8BAA-4BB4-9C84-98C8E2D836DB</string>
+</dict>
+</plist>
