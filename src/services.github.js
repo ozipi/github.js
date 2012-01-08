@@ -151,8 +151,8 @@ $.addService("github", {
 	
 	getRepoCommit: function(data, success, error){
 		//End url format https://api.github.com/repos/ozipi/github.js/commits/bba61daf28419a1762f6218fea3f96279e399371
-		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.commits + '/' + data.sha;
-		//console.log('github::', data.info, data, url);				
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.commits + '/' + data.commit;
+		console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	
@@ -165,22 +165,22 @@ $.addService("github", {
 	
 	getRepoCommitComments: function(data, success, error){
 		//End url format https://api.github.com/repos/ozipi/github.js/commits/bba61daf28419a1762f6218fea3f96279e399371/comments
-		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.commits + '/' + data.sha + '/' + data.info.paths.comments;
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.commits + '/' + data.commit + '/' + data.info.paths.comments;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	
 	getRepoComment: function(data, success, error){
 		//End url format https://api.github.com/repos/ozipi/github.js/comments/822633
-		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.comments + '/' + data.commentid;
-		//console.log('github::', data.info, data, url);				
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.comments + '/' + data.commentId;
+		console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 
 	compareRepoCommits: function(data, success, error){
 		//End url format httpshttps://api.github.com/repos/ozipi/github.js/compare/bba61daf28419a1762f6218fea3f96279e399371...0f8a5590fa8d877b9193c383c4be7289e02eeb3f
-		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.compare + '/' + data.commitBase + '...' + data.commentHead;
-		//console.log('github::', data.info, data, url);				
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.compare + '/' + data.compareBaseSha + '...' + data.compareEndSha;
+		console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},		
 	
@@ -191,13 +191,13 @@ $.addService("github", {
 	getRepoDownloads: function(data, success, error){
 		//End url format https://api.github.com/repos/ozipi/github.js/downloads
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.downloads;
-		//console.log('github::', data.info, data, url);				
+		console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	
 	getRepoDownload: function(data, success, error){
 		//End url format https://api.github.com/repos/ozipi/github.js/downloads/168855
-		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.downloads + '/' + data.downloadid;
+		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.downloads + '/' + data.downloadId;
 		//console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},
@@ -209,7 +209,7 @@ $.addService("github", {
 	getRepoForks: function(data, success, error){
 		//End url format https://api.github.com/repos/ozipi/github.js/forks
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.forks;
-		//console.log('github::', data.info, data, url);				
+		console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},
 
@@ -243,7 +243,7 @@ $.addService("github", {
 	getRepoHooks: function(data, success, error){
 		//End url format https://api.github.com/repos/ozipi/github.js/watchers
 		var url = data.info.urlBase + '/' + data.info.paths.repos + '/' + data.user + '/' + data.repo + '/' + data.info.paths.hooks;
-		//console.log('github::', data.info, data, url);				
+		console.log('github::', data.info, data, url);				
 		this.sendRequest(url, data.data, success);
 	},	
 	

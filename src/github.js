@@ -19,8 +19,21 @@ function Github (login){
 	this.data.repoLanguages = {};			
 	this.data.repoTags = {};				
 	this.data.repoBranches = {};
-	this.data.repoCommits = {};	
-
+	this.data.repoCollaborators = {};	
+	this.data.repoCommits = {};		
+	this.data.repoCommit = {};	
+	this.data.repoComments = {};	
+	this.data.repoCommitComments = {};		
+	this.data.repoComment = {};			
+	this.data.repoCompareCommits = {};				
+	this.data.repoDownloads = {};			
+	this.data.repoDownload = {};						
+	this.data.repoForks = {};
+	this.data.repoWatchers = {};
+	this.data.reposWatchedByUser = {};	
+	this.data.repoHooks = {};		
+	this.data.repoHook = {};
+	
 	// Paths
 	this.paths = {};	
 	this.paths.publicUsers = 'users';
@@ -44,6 +57,7 @@ function Github (login){
 	this.paths.watched = 'watched';	
 	this.paths.hooks = 'hooks';		
 	this.paths.gists = 'gists';			
+	this.paths.downloads = 'downloads'
 	
 	this.callback = null;
 	
@@ -314,6 +328,29 @@ function Github (login){
 		);		
 	};	
 	
+	// ##################################################################################
+	//  Repos - Collaborators
+	// http://developer.github.com/v3/repos/collaborators/	
+	// ##################################################################################	
+	this.getRepoCollaborators = function(user, repo, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoCollaborators') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = repo;		
+
+		$.getService("github").getRepoCollaborators(
+			{user: user, repo: repo, info: this, data: data},
+			$.proxy(this._getRepoCollaborators_successHandler, this)
+		);		
+	};
+	
+	// ##################################################################################
+	//  Repos - Collaborators
+	//	http://developer.github.com/v3/repos/commits/
+	// ##################################################################################	
 	this.getRepoCommits = function(user, repo, callback, data){
 		(user === undefined || user === '')? user = this.login : null;
 		(data === undefined) ? data = {} : null;
@@ -327,6 +364,214 @@ function Github (login){
 		$.getService("github").getRepoCommits(
 			{user: user, repo: repo,info: this, data: data},
 			$.proxy(this._getRepoCommits_successHandler, this)
+		);		
+	};
+	
+	this.getRepoCommit = function(user, repo, commit, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoCommit') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = commit;	
+
+		$.getService("github").getRepoCommit(
+			{user: user, repo: repo, commit: commit, info: this, data: data},
+			$.proxy(this._getRepoCommit_successHandler, this)
+		);		
+	};	
+	
+	this.getRepoComments = function(user, repo, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoComments') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = repo;	
+
+		$.getService("github").getRepoComments(
+			{user: user, repo: repo, info: this, data: data},
+			$.proxy(this._getRepoComments_successHandler, this)
+		);		
+	};	
+	
+	this.getRepoCommitComments = function(user, repo, commit, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoCommitComments') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = commit;	
+
+		$.getService("github").getRepoCommitComments(
+			{user: user, repo: repo, commit: commit, info: this, data: data},
+			$.proxy(this._getRepoCommitComments_successHandler, this)
+		);		
+	};	
+	
+	this.getRepoComment = function(user, repo, commentId, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoComment') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = commentId;	
+
+		$.getService("github").getRepoComment(
+			{user: user, repo: repo, commentId: commentId, info: this, data: data},
+			$.proxy(this._getRepoComment_successHandler, this)
+		);		
+	};	
+	
+	this.compareRepoCommits = function(user, repo, compareBaseSha, compareEndSha, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoCompareCommits') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = compareBaseSha + '...' + compareEndSha;	
+
+		$.getService("github").compareRepoCommits(
+			{user: user, repo: repo, compareBaseSha: compareBaseSha, compareEndSha: compareEndSha, info: this, data: data},
+			$.proxy(this._compareRepoCommits_successHandler, this)
+		);		
+	};	
+	
+	// ##################################################################################
+	//  Repos - Downloads
+	//	http://developer.github.com/v3/repos/downloads/	
+	// ##################################################################################	
+	this.getRepoDownloads = function(user, repo, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoDownloads') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = repo;	
+
+		$.getService("github").getRepoDownloads(
+			{user: user, repo: repo, info: this, data: data},
+			$.proxy(this._getRepoDownloads_successHandler, this)
+		);		
+	};
+
+	this.getRepoDownload = function(user, repo, downloadId, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoDownload') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = repo;	
+
+		$.getService("github").getRepoDownload(
+			{user: user, repo: repo, downloadId: downloadId, info: this, data: data},
+			$.proxy(this._getRepoDownload_successHandler, this)
+		);		
+	};
+	
+	// ##################################################################################
+	//  Repos - Forks
+	//	http://developer.github.com/v3/repos/forks/
+	// ##################################################################################		
+	this.getRepoForks = function(user, repo, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoForks') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = repo;	
+
+		$.getService("github").getRepoForks(
+			{user: user, repo: repo, info: this, data: data},
+			$.proxy(this._getRepoForks_successHandler, this)
+		);		
+	};		
+
+	// ##################################################################################
+	//  Repos - Watchers
+	//	http://developer.github.com/v3/repos/watchers/
+	// ##################################################################################	
+	this.getRepoWatchers = function(user, repo, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoWatchers') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = repo;	
+
+		$.getService("github").getRepoWatchers(
+			{user: user, repo: repo, info: this, data: data},
+			$.proxy(this._getRepoWatchers_successHandler, this)
+		);		
+	};	
+	
+	this.getReposWatchedByUser = function(user, repo, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'reposWatchedByUser') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = repo;	
+
+		$.getService("github").getReposWatchedByUser(
+			{user: user, repo: repo, info: this, data: data},
+			$.proxy(this._getReposWatchedByUser_successHandler, this)
+		);		
+	};	
+
+	// ##################################################################################
+	//  Repos - Hooks
+	//	http://developer.github.com/v3/repos/hooks/
+	// ##################################################################################	
+	this.getRepoHooks = function(user, repo, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoHooks') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = repo;	
+
+		$.getService("github").getRepoHooks(
+			{user: user, repo: repo, info: this, data: data},
+			$.proxy(this._getRepoHooks_successHandler, this)
+		);		
+	};	
+	
+	this.getRepoHook = function(user, repo, hookId, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'repoHook') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = hookId;	
+
+		$.getService("github").getRepoHook(
+			{user: user, repo: repo, hookId: hookId, info: this, data: data},
+			$.proxy(this._getRepoHook_successHandler, this)
+		);		
+	};	
+	
+	this.testRepoHook = function(user, repo, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+
+		this.callback = callback;
+
+		$.getService("github").testRepoHook(
+			{user: user, repo: repo, info: this, data: data},
+			$.proxy(this._testRepoHook_successHandler, this)
 		);		
 	};	
 	
@@ -504,6 +749,17 @@ function Github (login){
 		}
 	};	
 	
+	this._getRepoCollaborators_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			console.log('_getRepoCollaborators_successHandler::', result)
+			this.data.repoCollaborators[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
 	this._getRepoCommits_successHandler = function(result){
 		if (this._checkMeta(result.meta) != null){
 			this.data.repoCommits[this.lastIDCalled] = $.extend(true, {}, result.data);
@@ -514,7 +770,138 @@ function Github (login){
 		}
 	};	
 	
+	this._getRepoCommit_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repoCommit[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getRepoComments_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repoComments[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};
+	
+	this._getRepoCommitComments_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repoCommitComments[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getRepoComment_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repoComment[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._compareRepoCommits_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repoCompareCommits[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getRepoDownloads_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repoDownloads[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getRepoDownload_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repoDownload[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};
+	
+	this._getRepoForks_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repoForks[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};
+	
+	this._getRepoWatchers_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repoWatchers[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getReposWatchedByUser_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.reposWatchedByUser[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getRepoHooks_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repoHooks[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getRepoHook_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.repoHook[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._testRepoHook_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+		
+	////////////////
 	// Helpers
+	////////////////	
 	this._getCallback = function (data) {
 		if (this.callback != null){
 			this.callback(data);

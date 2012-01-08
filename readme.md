@@ -57,7 +57,30 @@
 * .getRepoBranches(login, repo, $.proxy(_getRepoBranches_successHandler, this));						
 
 #### Repos - Commits	
-* .getRepoCommits(login, repo, $.proxy(_getRepoCommits_successHandler, this));							
+* .getRepoCommits(login, repo, $.proxy(_getRepoCommits_successHandler, this));			
+
+* .getRepoCommit(login, repo, githubjsCommit, $.proxy(_getRepoCommit_successHandler, this));			
+* .getRepoComments(login, repo, $.proxy(_getRepoComments_successHandler, this));		
+* .getRepoCommitComments(login, repo, githubjsCommit, $.proxy(_getRepoCommitComments_successHandler, this));		
+* .getRepoComment(login, repo, commentId, $.proxy(_getRepoComment_successHandler, this));		
+* .compareRepoCommits(login, repo, compareBaseSha, compareEndSha, $.proxy(_compareRepoCommits_successHandler, this));
+
+#### Repos - Downloads
+* .getRepoDownloads(login, repo, $.proxy(_getRepoDownloads_successHandler, this));		
+* .getRepoDownload(login, repo, downloadId, $.proxy(_getRepoDownload_successHandler, this));		
+
+#### Repos - Forks	
+* .getRepoForks(login, repo, $.proxy(_getRepoForks_successHandler, this));		
+
+#### Repos - Watchers
+* .getRepoWatchers(login, repo, $.proxy(_getRepoWatchers_successHandler, this));		
+* .getReposWatchedByUser(login, repo, $.proxy(_getReposWatchedByUser_successHandler, this));		
+
+#### Repos - Hooks
+* .getRepoHooks(login, repo, $.proxy(_getRepoHooks_successHandler, this));		
+* .getRepoHook(login, repo, hookId, $.proxy(_getRepoHook_successHandler, this));		
+* .testRepoHook(login, repo, $.proxy(_testRepoHook_successHandler, this));
+				
 
 #### == RoadMap ==:
 - Call queue

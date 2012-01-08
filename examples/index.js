@@ -40,12 +40,18 @@ function _startTests() {
 	var gistCommentId = '153045';	
 	var org = 'hackinvaders';
 	var repo = 'github.js'
-	
+	var githubjsCommit = '7176d2d27df32d2f195015acacc56e14aeb1e348';
+	var compareEndSha = '3b1e3b97b97f47f69ef32dc15916fbf5fa0a16d7';
+	var compareBaseSha = '9bde6deaa330c825c3462ee7405bc84c296309dd';	
+	var commentId = '822633';
+	var downloadId = '168855';
+	var userId = '153045';
+	var hookId = '';
 	
 	// ##################################################################################
 	//  Gists
 	// ##################################################################################		
-	gitinfo.getUserGists(login, $.proxy(_getUserGists_successHandler, this));		
+	//gitinfo.getUserGists(login, $.proxy(_getUserGists_successHandler, this));		
 	//gitinfo.getUserGist(login, gistId, $.proxy(_getUserGist_successHandler, this));		
 	//gitinfo.getGistComments(login, gistId, $.proxy(_getGistComments_successHandler, this));		
 	//gitinfo.getGistCommentId(login, gistId, gistCommentId, $.proxy(_getGistCommentsId_successHandler, this));		
@@ -73,43 +79,42 @@ function _startTests() {
 	// ##################################################################################
 	//  Repos - Collaborators
 	// ##################################################################################	
-	// getRepoCollaborators
+	//gitinfo.getRepoCollaborators(login, repo, $.proxy(_getRepoCollaborators_successHandler, this));			
 	// checkRepoCollaborator
 	
 	// ##################################################################################
 	//  Repos - Commits
 	// ##################################################################################	
 	//gitinfo.getRepoCommits(login, repo, $.proxy(_getRepoCommits_successHandler, this));							
-	// getRepoCommit
-	// getRepoComments
-	// getRepoCommitComments
-	// getRepoComment
-	// compareRepoCommits
+	//gitinfo.getRepoCommit(login, repo, githubjsCommit, $.proxy(_getRepoCommit_successHandler, this));			
+	//gitinfo.getRepoComments(login, repo, $.proxy(_getRepoComments_successHandler, this));		
+	//gitinfo.getRepoCommitComments(login, repo, githubjsCommit, $.proxy(_getRepoCommitComments_successHandler, this));		
+	//gitinfo.getRepoComment(login, repo, commentId, $.proxy(_getRepoComment_successHandler, this));		
+	//gitinfo.compareRepoCommits(login, repo, compareBaseSha, compareEndSha, $.proxy(_compareRepoCommits_successHandler, this));
 
 	// ##################################################################################
 	// Repos - Downloads
 	// ##################################################################################
-	// getRepoDownloads
-	// getRepoDownload
+	//gitinfo.getRepoDownloads(login, repo, $.proxy(_getRepoDownloads_successHandler, this));		
+	//gitinfo.getRepoDownload(login, repo, downloadId, $.proxy(_getRepoDownload_successHandler, this));		
 	
 	// ##################################################################################
 	// Repos - Forks
 	// ##################################################################################	
-	// getRepoForks
+	//gitinfo.getRepoForks(login, repo, $.proxy(_getRepoForks_successHandler, this));		
 
 	// ##################################################################################
 	// Repos - Watchers
 	// ##################################################################################	
-	// getRepoWatchers
-	// getReposWatchedByUser
+	//gitinfo.getRepoWatchers(login, repo, $.proxy(_getRepoWatchers_successHandler, this));		
+	//gitinfo.getReposWatchedByUser(login, repo, $.proxy(_getReposWatchedByUser_successHandler, this));		
 
 	// ##################################################################################
 	// Repos - Hooks
 	// ##################################################################################	
-	//getRepoHooks
-	//getRepoHook
-	//testRepoHook
-	
+	//gitinfo.getRepoHooks(login, repo, $.proxy(_getRepoHooks_successHandler, this));		
+	//gitinfo.getRepoHook(login, repo, hookId, $.proxy(_getRepoHook_successHandler, this));		
+	gitinfo.testRepoHook(login, repo, $.proxy(_testRepoHook_successHandler, this));	
 	
 	console.log('Tests:', info);
 };
@@ -205,9 +210,90 @@ function _getRepoBranches_successHandler(result){
 	return result;
 };
 
+function _getRepoCollaborators_successHandler(result) {
+	info.repoCollaborators = result;
+	return result;
+};
+
 function _getRepoCommits_successHandler(result){
 	info.repoCommits = result;	
 	return result;
 };
 
+function _getRepoComments_successHandler(result) {
+	console.log('gitinfo::_getRepoComments_successHandler::', result);		
+	info.repoComments = result;
+	return result;
+};
 
+function _getRepoCommit_successHandler(result) {
+	console.log('gitinfo::_getRepoCommit_successHandler::', result);		
+	info.repoCommit = result;
+	return result;
+};
+
+function _getRepoCommitComments_successHandler(result) {
+	console.log('gitinfo::_getRepoCommitComments_successHandler::', result);		
+	info.repoCommitsComments = result;
+	return result;
+};
+
+function _getRepoComment_successHandler(result) {
+	console.log('gitinfo::_getRepoComment_successHandler::', result);		
+	info.repoComment = result;
+	return result;
+};
+
+function _compareRepoCommits_successHandler(result) {
+	console.log('gitinfo::_compareRepoCommits_successHandler::', result);		
+	info.compareCommits = result;
+	return result;
+};
+
+function _getRepoDownloads_successHandler(result) {
+	console.log('gitinfo::_getRepoDownloads_successHandler::', result);		
+	info.repoDownloads = result;
+	return result;
+};
+
+function _getRepoDownload_successHandler(result) {
+	console.log('gitinfo::_getRepoDownload_successHandler::', result);		
+	info.repoDownload = result;
+	return result;
+};
+
+function _getRepoForks_successHandler(result) {
+	console.log('gitinfo::_getRepoForks_successHandler::', result);		
+	info.repoForks = result;
+	return result;
+};
+
+function _getRepoWatchers_successHandler(result) {
+	console.log('gitinfo::_getRepoWatchers_successHandler::', result);		
+	info.repoWatchers = result;
+	return result;
+};
+
+function _getReposWatchedByUser_successHandler(result) {
+	console.log('gitinfo::_getReposWatchedByUser_successHandler::', result);		
+	info.repoWatchedByUser = result;
+	return result;
+};
+
+function _getRepoHooks_successHandler(result) {
+	console.log('gitinfo::_getRepoHooks_successHandler::', result);		
+	info.repoHooks = result;
+	return result;
+};
+
+function _getRepoHook_successHandler(result) {
+	console.log('gitinfo::_getRepoHook_successHandler::', result);		
+	info.repoHook = result;
+	return result;
+};
+
+function _testRepoHook_successHandler(result) {
+	console.log('gitinfo::_testRepoHook_successHandler::', result);		
+	info.repoHookTest = result;
+	return result;
+};
