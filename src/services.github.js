@@ -47,7 +47,34 @@ $.addService("github", {
 	//  Orgs
 	// http://developer.github.com/v3/pulls/
 	// ##################################################################################
-
+	getOrg: function(data, success, error){
+		//End url format https://api.github.com/
+		var url = data.info.urlBase  + '/' + data.info.paths.organization + '/' + data.org;
+		console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},
+	
+	getUserOrgs: function(data, success, error){
+		//End url format https://api.github.com/users/ozipi/orgs
+		var url = data.info.urlBase  + '/' + data.info.paths.publicUsers + '/' + data.user + '/' + data.info.paths.organizations;
+		console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
+	getOrgMembersList: function(data, success, error){
+		//End url format http://developer.github.com/v3/orgs/members/
+		var url = data.info.urlBase  + '/' + data.info.paths.organizations + '/' + data.org + '/' + data.info.paths.members;
+		console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},
+	
+	getOrgPublicMembersList: function(data, success, error){
+		//End url format http://developer.github.com/v3/orgs/members/
+		var url = data.info.urlBase  + '/' + data.info.paths.organizations + '/' + data.org + '/' + data.info.paths.publicMembers;
+		console.log('github::', data.info, data, url);				
+		this.sendRequest(url, data.data, success);
+	},	
+	
 	// ##################################################################################
 	//  Pull Requests
 	// http://developer.github.com/v3/pulls/

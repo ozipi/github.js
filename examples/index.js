@@ -114,7 +114,15 @@ function _startTests() {
 	// ##################################################################################	
 	//gitinfo.getRepoHooks(login, repo, $.proxy(_getRepoHooks_successHandler, this));		
 	//gitinfo.getRepoHook(login, repo, hookId, $.proxy(_getRepoHook_successHandler, this));		
-	gitinfo.testRepoHook(login, repo, $.proxy(_testRepoHook_successHandler, this));	
+	//gitinfo.testRepoHook(login, repo, $.proxy(_testRepoHook_successHandler, this));	
+	
+	// ##################################################################################
+	// Repos - Orgs
+	// ##################################################################################	
+	//gitinfo.getOrg(org, $.proxy(_getOrg_successHandler, this));		
+	gitinfo.getUserOrgs(login, $.proxy(_getUserOrgs_successHandler, this));	
+	//gitinfo.getOrgMembersList(org, $.proxy(_getOrgMembersList_successHandler, this));		
+	//gitinfo.getOrgPublicMembersList(org, $.proxy(_getOrgPublicMembersList_successHandler, this));
 	
 	console.log('Tests:', info);
 };
@@ -295,5 +303,29 @@ function _getRepoHook_successHandler(result) {
 function _testRepoHook_successHandler(result) {
 	console.log('gitinfo::_testRepoHook_successHandler::', result);		
 	info.repoHookTest = result;
+	return result;
+};
+
+function _getOrgMembersList_successHandler(result) {
+	console.log('gitinfo::_getOrgMembersList_successHandler::', result);		
+	info.orgMemberList = result;
+	return result;
+};
+
+function _getOrgPublicMembersList_successHandler(result) {
+	console.log('gitinfo::_getOrgPublicMembersList_successHandler::', result);		
+	info.orgPublicMemberList = result;
+	return result;
+};
+
+function _getOrg_successHandler(result) {
+	console.log('gitinfo::_getOrg_successHandler::', result);		
+	info.org = result;
+	return result;
+};
+
+function _getUserOrgs_successHandler(result) {
+	console.log('gitinfo::_getUserOrgs_successHandler::', result);		
+	info.userOrgs = result;
 	return result;
 };

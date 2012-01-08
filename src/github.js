@@ -13,7 +13,10 @@ function Github (login){
 	this.data.usersFollowers = {};			
 	this.data.usersFollowing = {};	
 	this.data.repos = {};		
-	this.data.org = {};	
+	this.data.orgRepos = {};	
+	this.data.orgs = {};	
+	this.data.userOrgs = {};			
+	this.data.members = {};
 	this.data.repo = {};		
 	this.data.repoContributors = {};		
 	this.data.repoLanguages = {};			
@@ -33,6 +36,8 @@ function Github (login){
 	this.data.reposWatchedByUser = {};	
 	this.data.repoHooks = {};		
 	this.data.repoHook = {};
+	this.data.orgMembersList = {};
+	this.data.orgPublicMembersList = {};
 	
 	// Paths
 	this.paths = {};	
@@ -57,7 +62,10 @@ function Github (login){
 	this.paths.watched = 'watched';	
 	this.paths.hooks = 'hooks';		
 	this.paths.gists = 'gists';			
-	this.paths.downloads = 'downloads'
+	this.paths.downloads = 'downloads';
+	this.paths.organizations = 'orgs';	
+	this.paths.members = 'members';		
+	this.paths.publicMembers = 'public_members';			
 	
 	this.callback = null;
 	
@@ -129,6 +137,63 @@ function Github (login){
 		$.getService("github").getGistCommentId(
 			{user: user, gistId: gistId, commentId: commentId, info: this, data: data},
 			$.proxy(this._getGistCommentId_successHandler, this)
+		);		
+	};
+	
+	this.getOrg = function(org, callback, data){
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(org, 'orgs') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = org;	
+
+		$.getService("github").getOrg(
+			{org: org, info: this, data: data},
+			$.proxy(this._getOrg_successHandler, this)
+		);		
+	};	
+	
+	this.getUserOrgs = function(user, callback, data){
+		(user === undefined || user === '')? user = this.login : null;
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(user, 'userOrgs') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = user;	
+
+		$.getService("github").getUserOrgs(
+			{user: user, info: this, data: data},
+			$.proxy(this._getUserOrgs_successHandler, this)
+		);		
+	};
+	
+	this.getOrgMembersList = function(org, callback, data){
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(org, 'orgMembersList') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = org;	
+
+		$.getService("github").getOrgMembersList(
+			{org: org, info: this, data: data},
+			$.proxy(this._getOrgMembersList_successHandler, this)
+		);		
+	};	
+
+	this.getOrgPublicMembersList = function(org, callback, data){
+		(data === undefined) ? data = {} : null;
+		if(this._checkCacheInfo(org, 'orgPublicMembersList') != null){
+			return;
+		}
+		this.callback = callback;
+		this.lastIDCalled = org;	
+
+		$.getService("github").getOrgPublicMembersList(
+			{org: org, info: this, data: data},
+			$.proxy(this._getOrgPublicMembersList_successHandler, this)
 		);		
 	};
 	
@@ -575,6 +640,8 @@ function Github (login){
 		);		
 	};	
 	
+
+	
 	// ##################################################################################	
 	//
 	// Success Handlers
@@ -681,7 +748,7 @@ function Github (login){
 	
 	this._getOrgRepos_successHandler = function(result){
 		if (this._checkMeta(result.meta) != null){
-			this.data.org[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this.data.orgRepos[this.lastIDCalled] = $.extend(true, {}, result.data);
 			this._getCallback(result.data);
 		}
 		else{
@@ -892,6 +959,47 @@ function Github (login){
 	
 	this._testRepoHook_successHandler = function(result){
 		if (this._checkMeta(result.meta) != null){
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	
+	this._getOrg_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.orgs[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getUserOrgs_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.userOrgs[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+
+	this._getOrgMembersList_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.orgMembersList[this.lastIDCalled] = $.extend(true, {}, result.data);
+			this._getCallback(result.data);
+		}
+		else{
+			console.log(result.data.message);
+		}
+	};	
+	
+	this._getOrgPublicMembersList_successHandler = function(result){
+		if (this._checkMeta(result.meta) != null){
+			this.data.orgPublicMembersList[this.lastIDCalled] = $.extend(true, {}, result.data);
 			this._getCallback(result.data);
 		}
 		else{

@@ -46,6 +46,12 @@
 * .getUserFollowers(login, $.proxy(_getUserFollowers_successHandler, this));		
 * .getUserFollowing(login, $.proxy(_getUserFollowing_successHandler, this));					
 
+#### Organizations
+* .gitinfo.getOrg(org, $.proxy(_getOrg_successHandler, this));		
+* .gitinfo.getUserOrgs(login, $.proxy(_getUserOrgs_successHandler, this));	
+* .gitinfo.getOrgMembersList(org, $.proxy(_getOrgMembersList_successHandler, this));		
+* .gitinfo.getOrgPublicMembersList(org, $.proxy(_getOrgPublicMembersList_successHandler, this));
+
 #### Repos
 * .getUserRepos(login, $.proxy(_getUserRepos_successHandler, this));			
 * .getOrgRepos(org, $.proxy(_getOrgRepos_successHandler, this));	
