@@ -91,8 +91,8 @@
 #### == RoadMap ==:
 - Call queue
 - Min Builds
-- Missing Public Methods (Git Data, Issues, Orgs, Pull Requests)
+- Public Methods (Git Data, Issues, Orgs, Pull Requests)
 - Auth methods
-- Missing Private Methods
+- Private Methods
 - Remove Jquery and servicelocator dependencies 
 - Add tests (?)
